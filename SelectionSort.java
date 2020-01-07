@@ -1,3 +1,9 @@
+/**
+ * 선택 정렬 시간 복잡도
+ * (n-1)+(n-2)+(n-3)+ ... + 1
+ * (n2-n)/2
+ * O(n2)
+ */
 public class SelectionSort{
     public static void main(String[] args) {
         int [] arr = {9,6,7,3,66666};
