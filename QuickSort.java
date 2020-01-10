@@ -12,21 +12,22 @@ public class QuickSort {
                 s++;
             while (arr[l] > pivot)
                 l--;
-
-            tmp = arr[s];
-            arr[s] = arr[l];
-            arr[l] = tmp;
-            s++;
-            l--;
+            if(s<=l){
+                tmp = arr[s];
+                arr[s] = arr[l];
+                arr[l] = tmp;
+                s++;
+                l--;
+            }
         }
-        if (s < last)
+        if (first < l)
             sort(arr, first, l);
-        if (l > first)
+        if (last > s)
             sort(arr, s, last);
     }
 
     public static void main(String[] args) {
-        int[] arr = { 5, 3, 8, 9, 4, 1, 6, 2, 7, 1 };
+        int[] arr = { 5, 3, 8, 9, 4, 1, 6, 2, 7,1,1,1,1,1,1,1};
         QuickSort sort = new QuickSort();
         sort.sort(arr, 0, arr.length - 1);
 
