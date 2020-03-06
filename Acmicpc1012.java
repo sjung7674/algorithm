@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 
@@ -29,12 +31,32 @@ public class Acmicpc1012 {
             }
         }
     }
+    public void bfs(int[][] map, boolean[][] visited, int x, int y, int width, int height){
+        Queue<int[]> queue = new LinkedList<int[]>();
+        queue.add(new int[]{x,y});
+        while(!queue.isEmpty()){
+            int[] p = queue.poll();
+            x = p[0];
+            y = p[1];
+            for(int i = 0; i<4; i++){
+                int nX = x + dx[i];
+                int nY = y + dy[i];
+                if (nX >= 0 && nX < width && nY >= 0 && nY < height) {
+                    if (map[nX][nY] == 1 && !visited[nX][nY]) {
+                        queue.add(new int[]{nX,nY});
+                        visited[nX][nY] = true;
+                    }
+                }
+            }
+        }
+    }
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         int c = Integer.parseInt(st.nextToken());
         
         Acmicpc1012 a = new Acmicpc1012();
+        
         for(int i = 0; i<c;i++){
             st = new StringTokenizer(br.readLine());
             int cnt=0;
@@ -47,11 +69,11 @@ public class Acmicpc1012 {
                 st = new StringTokenizer(br.readLine());
                 map[Integer.parseInt(st.nextToken())][Integer.parseInt(st.nextToken())] = 1;
             }
-            a.print(map);
+           // a.print(map);
             for(int k = 0; k<height; k++){
                 for(int l = 0; l<width; l++){
                     if(map[l][k] == 1 && !visited[l][k]){
-                        a.dfs(map, visited, l, k, width, height);
+                        a.bfs(map, visited, l, k, width, height);
                         cnt++;
                     }
                 }
