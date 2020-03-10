@@ -1,7 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Acmicpc11403 {
@@ -10,7 +11,6 @@ public class Acmicpc11403 {
     private int[][] result;
 
     public Acmicpc11403(int node) {
-        visited = new int[node];
         arr = new int[node][node];
         result = new int[node][node];
     }
@@ -25,7 +25,23 @@ public class Acmicpc11403 {
             }
         }
     }
-
+    public void bfs(int node){
+        Queue<Integer> que = new LinkedList<>();
+        for(int i = 0; i< node;i++){
+            visited = new int[node];
+            que.add(i);
+            while(!que.isEmpty()){
+                int point = que.poll();
+                for(int j = 0;j<node;j++){
+                    if(arr[point][j]==1&&visited[j]==0){
+                        que.add(j);
+                        visited[j]=1;
+                        result[i][j]=1;
+                    }
+                }
+            }
+        }
+    }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -39,16 +55,8 @@ public class Acmicpc11403 {
             }
         }
         
-        for (int i = 0; i < node; i++) {
-            a.dfs(node,i);
-            for (int j = 0; j < node; j++) {
-                if(a.visited[j]==1){
-                    a.result[i][j] = 1;
-                }
-            }
-            Arrays.fill(a.visited,0);
-        }
-
+        a.bfs(node);
+        
         for (int i = 0; i < node; i++) {
             for (int j = 0; j < node; j++) {
                 System.out.print(a.result[i][j] + " ");
